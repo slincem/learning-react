@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti'
 import { Square } from './components/Square'
 import { TURNS } from './constants'
 import { checkWinnerFrom, checkEndGame } from './logic/board'
-import { WinnerModal} from './components/WinnerModal'
+import { WinnerModal } from './components/WinnerModal'
 import { saveGameToStorage, resetGameStorage } from './logic/storage'
 
 
@@ -25,20 +25,20 @@ function App() {
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
 
-    saveGameToStorage({board: newBoard, turn: newTurn})
+    saveGameToStorage({ board: newBoard, turn: newTurn })
 
     const newWinner = checkWinnerFrom(newBoard)
-    if(newWinner) {
+    if (newWinner) {
       confetti()
       setWinner(newWinner)
-    } else if(checkEndGame(newBoard)) {
+    } else if (checkEndGame(newBoard)) {
       setWinner(false)
     }
   }
- 
+
 
   const resetGame = () => {
-    setBoard(initialBoard)  
+    setBoard(initialBoard)
     setTurn(TURNS.X)
     setWinner(null)
     resetGameStorage()
@@ -53,9 +53,9 @@ function App() {
         {
           board.map((square, index) => {
             return (
-              <Square 
-                key = {index}
-                index = {index}
+              <Square
+                key={index}
+                index={index}
                 updateBoard={updateBoard}
               >
                 {square}
@@ -66,8 +66,8 @@ function App() {
       </section>
 
       <section className="turn">
-        <Square isSelected = {turn === TURNS.X}>{TURNS.X}</Square>
-        <Square isSelected = {turn === TURNS.O}>{TURNS.O}</Square>
+        <Square isSelected={turn === TURNS.X}>{TURNS.X}</Square>
+        <Square isSelected={turn === TURNS.O}>{TURNS.O}</Square>
       </section>
 
       <WinnerModal winner={winner} resetGame={resetGame} />
