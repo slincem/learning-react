@@ -5,12 +5,10 @@ function App() {
   const [enabled, setEnabled] = useState(false)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
+  // pointer movement
   useEffect(() => {
-    console.log('Here is the effect', { enabled })
-
     const handleMouseMove = (event) => {
       const { clientX, clientY } = event
-      console.log({ clientX, clientY })
       setMousePosition({ x: clientX, y: clientY })
     }
 
@@ -19,6 +17,15 @@ function App() {
     }
     return () => {
       window.removeEventListener('mousemove', handleMouseMove)
+    }
+  }, [enabled])
+
+  // change body classname
+  useEffect(() => {
+    document.body.classList.toggle('no-cursor', enabled)
+    return () => {
+      console.log('body add/remove classname for cursor, CLEANUP')
+      document.body.classList.remove('no-cursor')
     }
   }, [enabled])
 
